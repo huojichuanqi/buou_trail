@@ -1,4 +1,4 @@
-# buou_trail
+# llangou_trail
 分档移动止盈
 
 本工具极大提高了胜率，特别是管住你的双手，纪律性拉满。
@@ -10,21 +10,14 @@ bn交易所需设置**单向持仓**
 OKx交易所**单向持仓双向都支持**
 bitget交易所需设置**双向持仓**
 
-相关视频：
-- [视频1](https://www.youtube.com/watch?v=1ujgGsMQbqA)
-- [视频2](https://www.youtube.com/watch?v=f4T0tKZTVrM)
-- [视频3](https://www.youtube.com/watch?v=S8ICwu9u-dk)
+
 
 ### 安装环境
 推荐使用 `python3.9`。
 
-> 注意：很多朋友报错基本是由于 Windows 系统时间问题或代理问题。请确保电脑时间同步，若有代理问题，将 `proxy = {}` 改为你的代理端口。
+> 注意：报错基本是由于 Windows 系统时间问题或代理问题。请确保电脑时间同步，若有代理问题，将 `proxy = {}` 改为你的代理端口。
 
-服务器推荐使用阿里云轻量级服务器，我个人使用的是每月 34 人民币的那台。
 
-如果了解 Python 基础知识，大多数情况下都能解决环境问题。如需帮助，建议找身边朋友协助，或联系我有偿代劳。
-
-电报：[联系我](https://t.me/buouqukuairiji)
 
 > 注意 ：配置文件改好参数之后重命名：config.template.json 改成 config.json
 
@@ -96,4 +89,3 @@ bitget交易所需设置**双向持仓**
 
 - **monitor_interval**: 监控循环的时间间隔（以秒为单位），默认为 4 秒。
 
-打赏地址trc20: TUunBuqQ1ZDYt9WrA3ZarndFPQgefXqZAM
