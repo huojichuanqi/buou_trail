@@ -5,7 +5,7 @@ import logging
 import requests
 import json
 import okx.Trade_api as TradeAPI
-from logging.handlers import TimedRotatingFileHandler
+from utils.logger import setup_logger
 
 
 class MultiAssetTradingBot:
@@ -35,21 +35,8 @@ class MultiAssetTradingBot:
         self.trading_bot = TradeAPI.TradeAPI(config["apiKey"], config["secret"], config["password"], False, '0')
 
         # 配置日志
-        log_file = "log/okx_all.log"
-        logger = logging.getLogger(__name__)
-        logger.setLevel(logging.INFO)
+        self.logger = setup_logger(__name__, "log/okx_all.log")
 
-        file_handler = TimedRotatingFileHandler(log_file, when='midnight', interval=1, backupCount=7, encoding='utf-8')
-        file_handler.suffix = "%Y-%m-%d"
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
-
-        console_handler = logging.StreamHandler()
-        console_handler.setFormatter(formatter)
-        logger.addHandler(console_handler)
-
-        self.logger = logger
         self.position_mode = self.get_position_mode()  # 获取持仓模式
 
     def get_position_mode(self):

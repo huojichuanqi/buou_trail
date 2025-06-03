@@ -5,6 +5,7 @@ import logging
 import requests
 import json
 from logging.handlers import TimedRotatingFileHandler
+from utils.logger import setup_logger
 
 class MultiAssetTradingBot:
     def __init__(self, config, feishu_webhook=None, monitor_interval=4):
@@ -33,22 +34,7 @@ class MultiAssetTradingBot:
         })
 
         # 配置日志
-        log_file = "log/multi_asset_bot.log"
-        logger = logging.getLogger(__name__)
-        logger.setLevel(logging.INFO)
-
-        # 使用 TimedRotatingFileHandler 以天为单位进行日志分割
-        file_handler = TimedRotatingFileHandler(log_file, when='midnight', interval=1, backupCount=7, encoding='utf-8')
-        file_handler.suffix = "%Y-%m-%d"  # 设置日志文件名的后缀格式，例如 multi_asset_bot.log.2024-11-05
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
-
-        console_handler = logging.StreamHandler()
-        console_handler.setFormatter(formatter)
-        logger.addHandler(console_handler)
-
-        self.logger = logger
+        self.logger = setup_logger(__name__, "log/bn.log")
 
         # 用于记录每个持仓的最高盈利值和当前档位
         self.highest_profits = {}

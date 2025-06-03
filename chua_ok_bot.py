@@ -5,7 +5,7 @@ import logging
 import requests
 import json
 import okx.TradingBot_api as TradingBot
-from logging.handlers import TimedRotatingFileHandler
+from utils.logger import setup_logger
 
 class MultiAssetTradingBot:
     def __init__(self, config, feishu_webhook=None, monitor_interval=4):
@@ -34,22 +34,7 @@ class MultiAssetTradingBot:
         # 配置 OKX 第三方库
         self.trading_bot = TradingBot.TradingBotAPI(config["apiKey"], config["secret"], config["password"], False, '0')
         # 配置日志
-        log_file = "log/ok_bot.log"
-        logger = logging.getLogger(__name__)
-        logger.setLevel(logging.INFO)
-
-        # 使用 TimedRotatingFileHandler 以天为单位进行日志分割
-        file_handler = TimedRotatingFileHandler(log_file, when='midnight', interval=1, backupCount=7, encoding='utf-8')
-        file_handler.suffix = "%Y-%m-%d"  # 设置日志文件名的后缀格式，例如 multi_asset_bot.log.2024-11-05
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
-
-        console_handler = logging.StreamHandler()
-        console_handler.setFormatter(formatter)
-        logger.addHandler(console_handler)
-
-        self.logger = logger
+        self.logger = setup_logger(__name__, "log/ok_bot.log")
 
         # 用于记录每个持仓的最高盈利值和当前档位
         self.highest_profits = {}
@@ -222,7 +207,7 @@ class MultiAssetTradingBot:
             self.current_tiers[symbol] = current_tier
 
             self.logger.info(
-                f"监控 {symbol}，仓位: {position_amt}，方向: {side}，开仓价格: {entry_price}，当前价格: {current_price}，浮动盈亏: {profit_pct:.2f}%，最高盈亏: {highest_profit:.2f}%，当前档位: {current_tier}")
+                f"监控 {symbol}，仓位: {position_amt}，方向: {side}，开仓价格: {entry_price}，当��价格: {current_price}，浮动盈亏: {profit_pct:.2f}%，最高盈亏: {highest_profit:.2f}%，当前档位: {current_tier}")
 
             if current_tier == "低档保护止盈":
                 self.logger.info(f"回撤到{self.low_trail_stop_loss_pct:.2f}% 止盈")

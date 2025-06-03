@@ -1,1 +1,3 @@
-#config.json
+config.json
+log/
+.idea/
